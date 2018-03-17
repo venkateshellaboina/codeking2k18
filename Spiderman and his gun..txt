@@ -1,0 +1,74 @@
+/*
+https://www.hackerrank.com/contests/quest-final/challenges/spider-man-and-his-dual-gun
+
+*/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define ull unsigned long long int
+ll dp[2000][2000];
+
+ll solve(ll *a,ll t,ll n,ll l,ll r) // a:array, t:time,n: array size, l:left index ,r:right index.
+{
+    if(dp[l][r]!=0)// if we already solved for that range return it else calculate.
+    {
+        return dp[l][r];
+    }
+    if(t>n || l>r) 
+    {
+        return 0;
+    }
+   
+
+    dp[l][r]= max(a[l]*t+(solve(a,t+1,n,l+1,r)),a[r]*t+solve(a,t+1,n,l,r-1));
+
+    //cout<<dp[l][r]<<" "<<a[l]<<" "a[r]<<endl;
+
+    return dp[l][r];
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+int main()
+{
+  ll t;
+  cin>>t;
+// s
+while(t--)
+{
+     //set all the array elements to zero for each test case.
+     for(int i=0;i<2000;i++)
+    {
+    	for(int j=0;j<2000;j++)
+    	{
+        	dp[i][j]=0;
+    	}
+    }
+    
+    ll n;
+    cin>>n;
+
+    ll a[n];
+    for(ll i=0;i<n;i++)
+    {
+        cin>>a[i];
+    }
+    
+    ll ans=solve(a,1,n,0,n-1);// initial time:1,initial range from 0 to n-1.
+    cout<<ans<<endl;
+    
+}
+
+
+
+return 0;
+}
